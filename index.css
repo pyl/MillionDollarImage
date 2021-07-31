@@ -1,11 +1,31 @@
-#milliondollarimage {
-   position: absolute;
-   top: 50%;
-   left: 50%;
-   margin-top: -250px; /* Half the height */
-   margin-left: -250px; /* Half the width */
+ #milliondollarimage {
+    display:block;
+    margin:auto;     
     object-fit: contain;
     width: 500px;
     height: 500px;
 
+    border: 5px solid #555;
+
+} 
+
+
+section {
+    text-align: center;
+}
+
+#maincont {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+#mainsect {
+    height: 100%;
+}
+
+html, body {
+    height: 100%;
 }
