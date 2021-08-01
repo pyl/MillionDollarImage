@@ -7,15 +7,14 @@
     <title>Million Dollar Image</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" href="css/index.css" media="screen" />
-    <script defer src="js/script.js"></script>
+    <script defer src="js/submitImage.js"></script>
+    <script defer src="https://www.paypal.com/sdk/js?client-id=AaCVWK3IIxgcU63YXstDOKYZN0OJnnTMstYmMru_waD_a__NBYRFgsOUu2b3p_u14FlqXoNcP4YSMxX-
+&currency=USD"></script>
 </head>
 
 <body>
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <!-- <a class="navbar-item" href="https://bulma.io">
-                <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
-            </a> -->
 
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
                 data-target="navbarBasicExample">
@@ -29,11 +28,8 @@
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
-                        <a class="button is-light">
-                            Archive
-                        </a>
                         <a class="button is-primary">
-                            Share Your Image
+                            Go Back
                         </a>
                     </div>
                 </div>
@@ -46,6 +42,7 @@
             <img id='milliondollarimage' src="https://www.w3schools.com/images/w3lynx_200.png">
             <a href="https://www.w3schools.com/images/w3lynx_200.png">https://www.w3schools.com/images/w3lynx_200.png</a>
             <p class="subtitle">by Anonymous</p>
+            <div id="paypal-button"></div>
         </div>
     </section>
 
