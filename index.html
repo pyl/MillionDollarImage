@@ -7,7 +7,8 @@
     <title>Million Dollar Image</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" href="css/index.css" media="screen" />
-    <meta name="viewport" content="width=device-width, initial-scale=1"> <!-- Ensures optimal rendering on mobile devices. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Ensures optimal rendering on mobile devices. -->
     <meta http-equiv="X-UA-Compatible" content="IE=edge" /> <!-- Optimal Internet Explorer compatibility -->
     <!-- <script defer src="js/paypal.js"></script> -->
     <script defer src="js/script.js"></script>
@@ -15,37 +16,33 @@
 
 <body>
     <script
-      src="https://www.paypal.com/sdk/js?client-id=AdZ6x2lVaJMzftGmkgDrbtxhl_y5lk0X1vQjDchTq2eDZ18I82OuLV25ovW_47ngKF3BIsQ68Tf-ZxON"> // Required. Replace YOUR_CLIENT_ID with your sandbox client ID.
+        src="https://www.paypal.com/sdk/js?client-id=AdZ6x2lVaJMzftGmkgDrbtxhl_y5lk0X1vQjDchTq2eDZ18I82OuLV25ovW_47ngKF3BIsQ68Tf-ZxON"> // Required. Replace YOUR_CLIENT_ID with your sandbox client ID.
+        </script>
+
+    <script>
+        paypal.Buttons({
+            createOrder: function (data, actions) {
+                // This function sets up the details of the transaction, including the amount and line item details.
+                return actions.order.create({
+                    purchase_units: [{
+                        amount: {
+                            value: '0.01'
+                        }
+                    }]
+                });
+            },
+            onApprove: function (data, actions) {
+                // This function captures the funds from the transaction.
+                return actions.order.capture().then(function (details) {
+                    // This function shows a transaction success message to your buyer.
+                    alert('Transaction completed by ' + details.payer.name.given_name);
+                    console.log("payment successful");
+                });
+            }
+        }).render('#paypal-button-container');
+  //This function displays Smart Payment Buttons on your web page.
     </script>
 
-  <div id="paypal-button-container"></div>
-
-
-
-<script>
-  paypal.Buttons({
-    createOrder: function(data, actions) {
-      // This function sets up the details of the transaction, including the amount and line item details.
-      return actions.order.create({
-        purchase_units: [{
-          amount: {
-            value: '0.01'
-          }
-        }]
-      });
-    },
-    onApprove: function(data, actions) {
-      // This function captures the funds from the transaction.
-      return actions.order.capture().then(function(details) {
-        // This function shows a transaction success message to your buyer.
-        alert('Transaction completed by ' + details.payer.name.given_name);
-        console.log("payment successful");
-      });
-    }
-  }).render('#paypal-button-container');
-  //This function displays Smart Payment Buttons on your web page.
-</script>
-    
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <!-- <a class="navbar-item" href="https://bulma.io">
@@ -67,10 +64,9 @@
                         <a href="archive.html" class="button is-light">
                             Archive
                         </a>
-                        <button class="button is-primary" onclick="toggleModal()">
-                        <a href="submitImage.html" class="button is-primary">
+                        <a class="button is-primary" onclick="toggleModal()">
                             Share Your Image
-                        </button>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -132,10 +128,11 @@
                     <label for="link">What's your ~magical~ link?</label><br>
                     <input type="url" id="link" name="link" required><br>
                     <label for="displayName">Display name (optional)</label><br>
-                    <input type="text" id="displayName" name="displayName"><br>
+                    <input type="text" id="displayName" name="displayName"><br><br>
                     <!-- <label for="color">Change the site colors (optional)</label><br>
                     <input type="color" id="color" name="color"><br> -->
-                    <input class="button is-warning" type="submit" value="Checkout">
+                    <div id="paypal-button-container"></div>
+                    <button class="button" href="submitImage.html">Checkout</button>
                 </form>
             </section>
             <!-- <footer class="modal-card-foot">
@@ -149,7 +146,8 @@
         <div class="container">
             <h1 class="title">Million Dollar Image</h1>
             <img id='milliondollarimage' src="https://www.w3schools.com/images/w3lynx_200.png">
-            <a href="https://www.w3schools.com/images/w3lynx_200.png">https://www.w3schools.com/images/w3lynx_200.png</a>
+            <a
+                href="https://www.w3schools.com/images/w3lynx_200.png">https://www.w3schools.com/images/w3lynx_200.png</a>
             <p class="subtitle">by Anonymous</p>
         </div>
     </section>
