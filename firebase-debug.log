@@ -1,0 +1,43 @@
+[debug] [2021-07-31T01:51:38.510Z] ----------------------------------------------------------------------
+[debug] [2021-07-31T01:51:38.513Z] Command:       /usr/local/nvm/versions/node/v12.14.1/bin/node /usr/local/nvm/versions/node/v12.14.1/bin/firebase emulators:start --only hosting
+[debug] [2021-07-31T01:51:38.513Z] CLI Version:   9.16.0
+[debug] [2021-07-31T01:51:38.513Z] Platform:      linux
+[debug] [2021-07-31T01:51:38.513Z] Node Version:  v12.14.1
+[debug] [2021-07-31T01:51:38.514Z] Time:          Sat Jul 31 2021 01:51:38 GMT+0000 (Coordinated Universal Time)
+[debug] [2021-07-31T01:51:38.514Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2021-07-31T01:51:38.578Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2021-07-31T01:51:38.578Z] > authorizing via signed-in user (python8u@gmail.com)
+[info] i  emulators: Starting emulators: hosting {"metadata":{"emulator":{"name":"hub"},"message":"Starting emulators: hosting"}}
+[debug] [2021-07-31T01:51:38.595Z] [hub] writing locator at /tmp/hub-million-dollar-image.json
+[debug] [2021-07-31T01:51:38.620Z] >>> [apiv2][query] GET https://firebasehosting.googleapis.com/v1beta1/projects/million-dollar-image/sites 
+[debug] [2021-07-31T01:51:38.774Z] <<< [apiv2][status] GET https://firebasehosting.googleapis.com/v1beta1/projects/million-dollar-image/sites 200
+[debug] [2021-07-31T01:51:38.774Z] <<< [apiv2][body] GET https://firebasehosting.googleapis.com/v1beta1/projects/million-dollar-image/sites {"sites":[{"name":"projects/320867635310/sites/million-dollar-image","defaultUrl":"https://million-dollar-image.web.app","type":"DEFAULT_SITE"}]}
+[debug] [2021-07-31T01:51:38.775Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/million-dollar-image/webApps/-/config [none]
+[debug] [2021-07-31T01:51:39.139Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/million-dollar-image/webApps/-/config 200
+[debug] [2021-07-31T01:51:39.140Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/million-dollar-image/webApps/-/config {"projectId":"million-dollar-image","storageBucket":"million-dollar-image.appspot.com","apiKey":"AIzaSyDyiJgdXNToTycBiAqRlPxF2K1i_PoLnGM","authDomain":"million-dollar-image.firebaseapp.com","messagingSenderId":"320867635310"}
+[info] ✔  hosting: Local server: http://localhost:5001 {"metadata":{"emulator":{"name":"hosting"},"message":"Local server: \u001b[4m\u001b[1mhttp://localhost:5001\u001b[22m\u001b[24m"}}
+[warn] ⚠  emulators: The Emulator UI requires a project ID to start. Configure your default project with 'firebase use' or pass the --project flag. {"metadata":{"emulator":{"name":"hub"},"message":"The Emulator UI requires a project ID to start. Configure your default project with 'firebase use' or pass the --project flag."}}
+[info] 
+┌─────────────────────────────────────────────────────────────┐
+│ ✔  All emulators ready! It is now safe to connect your app. │
+└─────────────────────────────────────────────────────────────┘
+
+┌──────────┬────────────────┐
+│ Emulator │ Host:Port      │
+├──────────┼────────────────┤
+│ Hosting  │ localhost:5001 │
+└──────────┴────────────────┘
+  Emulator Hub running at localhost:4400
+  Other reserved ports: None
+
+Issues? Report them at https://github.com/firebase/firebase-tools/issues and attach the *-debug.log files.
+ 
+[info] i  hosting: 127.0.0.1 - - [31/Jul/2021:01:51:40 +0000] "GET /?authuser=0 HTTP/1.1" 200 1974 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [31/Jul/2021:01:51:40 +0000] \"GET /?authuser=0 HTTP/1.1\" 200 1974 \"-\" \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [31/Jul/2021:01:51:40 +0000] "GET /index.css HTTP/1.1" 200 405 "https://5001-5b086904-5c1e-429b-b219-776b092701c2.cs-us-east1-pkhd.cloudshell.dev/?authuser=0" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [31/Jul/2021:01:51:40 +0000] \"GET /index.css HTTP/1.1\" 200 405 \"https://5001-5b086904-5c1e-429b-b219-776b092701c2.cs-us-east1-pkhd.cloudshell.dev/?authuser=0\" \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [31/Jul/2021:01:51:40 +0000] "GET /script.js HTTP/1.1" 200 486 "https://5001-5b086904-5c1e-429b-b219-776b092701c2.cs-us-east1-pkhd.cloudshell.dev/?authuser=0" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [31/Jul/2021:01:51:40 +0000] \"GET /script.js HTTP/1.1\" 200 486 \"https://5001-5b086904-5c1e-429b-b219-776b092701c2.cs-us-east1-pkhd.cloudshell.dev/?authuser=0\" \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [31/Jul/2021:01:51:40 +0000] "GET /favicon.ico HTTP/1.1" 404 150 "https://5001-5b086904-5c1e-429b-b219-776b092701c2.cs-us-east1-pkhd.cloudshell.dev/?authuser=0" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [31/Jul/2021:01:51:40 +0000] \"GET /favicon.ico HTTP/1.1\" 404 150 \"https://5001-5b086904-5c1e-429b-b219-776b092701c2.cs-us-east1-pkhd.cloudshell.dev/?authuser=0\" \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [31/Jul/2021:01:52:09 +0000] "GET /?authuser=0 HTTP/1.1" 200 1974 "-" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [31/Jul/2021:01:52:09 +0000] \"GET /?authuser=0 HTTP/1.1\" 200 1974 \"-\" \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [31/Jul/2021:01:52:09 +0000] "GET /index.css HTTP/1.1" 200 405 "https://5001-5b086904-5c1e-429b-b219-776b092701c2.cs-us-east1-pkhd.cloudshell.dev/?authuser=0" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [31/Jul/2021:01:52:09 +0000] \"GET /index.css HTTP/1.1\" 200 405 \"https://5001-5b086904-5c1e-429b-b219-776b092701c2.cs-us-east1-pkhd.cloudshell.dev/?authuser=0\" \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [31/Jul/2021:01:52:09 +0000] "GET /script.js HTTP/1.1" 200 486 "https://5001-5b086904-5c1e-429b-b219-776b092701c2.cs-us-east1-pkhd.cloudshell.dev/?authuser=0" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [31/Jul/2021:01:52:09 +0000] \"GET /script.js HTTP/1.1\" 200 486 \"https://5001-5b086904-5c1e-429b-b219-776b092701c2.cs-us-east1-pkhd.cloudshell.dev/?authuser=0\" \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36\""}}
+[info] i  hosting: 127.0.0.1 - - [31/Jul/2021:01:52:09 +0000] "GET /favicon.ico HTTP/1.1" 404 150 "https://5001-5b086904-5c1e-429b-b219-776b092701c2.cs-us-east1-pkhd.cloudshell.dev/?authuser=0" "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36" {"metadata":{"emulator":{"name":"hosting"},"message":"127.0.0.1 - - [31/Jul/2021:01:52:09 +0000] \"GET /favicon.ico HTTP/1.1\" 404 150 \"https://5001-5b086904-5c1e-429b-b219-776b092701c2.cs-us-east1-pkhd.cloudshell.dev/?authuser=0\" \"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36\""}}
