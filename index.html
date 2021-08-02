@@ -32,14 +32,83 @@
                         <a class="button is-light">
                             Archive
                         </a>
-                        <a class="button is-primary">
+                        <button class="button is-primary" onclick="toggleModal()">
                             Share Your Image
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
     </nav>
+
+    <script>
+        function toggleModal() {
+            document.getElementById("modal").classList.add('is-active');
+        }
+
+        function closeModal() {
+            document.getElementById("modal").classList.remove('is-active');
+        }
+    </script>
+
+    <style>
+        .modal-card {
+            width: 90%;
+        }
+
+        .modal-card-body {
+            text-align: left;
+        }
+
+        .modal-card-body h1 {
+            margin-left: 10%;
+        }
+
+        .modal-card-body form {
+            margin-left: 10%;
+        }
+
+        .modal-card-body input {
+            width: 80%;
+        }
+
+        .delete {
+            float: right;
+        }
+
+        .button .is-warning {
+            width: 250px;
+        }
+    </style>
+
+    <div class="modal" id="modal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <header class="modal-card-head">
+                <!-- <p class="modal-card-title">Modal title</p> -->
+                <button class="delete" aria-label="close" onclick="closeModal()"></button>
+            </header>
+            <section class="modal-card-body">
+                <h1 class="modal-card-title">##.## Dollar Image</h1>
+                <form>
+                    <label for="imageURL">Paste an image URL or </label><input type="file"><br>
+                    <input type="url" id="imageURL" name="imageURL"><br>
+                    <label for="link">What's your ~magical~ link?</label><br>
+                    <input type="url" id="link" name="link" required><br>
+                    <label for="displayName">Display name (optional)</label><br>
+                    <input type="text" id="displayName" name="displayName"><br>
+                    <!-- <label for="color">Change the site colors (optional)</label><br>
+                    <input type="color" id="color" name="color"><br> -->
+                    <input class="button is-warning" type="submit" value="Checkout">
+                </form>
+            </section>
+            <!-- <footer class="modal-card-foot">
+                <button class="button is-success">Save changes</button>
+                <button class="button">Cancel</button>
+            </footer> -->
+        </div>
+    </div>
+
     <section class="section" id="mainsect">
         <div class="container">
             <h1 class="title">Million Dollar Image</h1>
