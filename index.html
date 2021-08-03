@@ -66,7 +66,7 @@
 
     <style>
         .modal-card {
-            width: 90%;
+            width: 95%;
         }
 
         .modal-card-body {
@@ -74,15 +74,15 @@
         }
 
         .modal-card-body h1 {
-            margin-left: 10%;
+            margin-left: 7.5%;
         }
 
         .modal-card-body form {
-            margin-left: 10%;
+            margin-left: 7.5%;
         }
 
         .modal-card-body input {
-            width: 80%;
+            width: 85%;
         }
 
         .delete {
@@ -109,27 +109,23 @@
         <div class="modal-background"></div>
         <div class="modal-card">
             <header class="modal-card-head">
-                <button class="delete" aria-label="close" onclick="closeModal()"></button>
+                <button class="delete" aria-label="close" onclick="closeModal()" style="margin-left: 97.5%;"></button>
             </header>
             <section class="modal-card-body">
-                <h1 class="modal-card-title">##.## Dollar Image</h1>
+                <h1 class="title is-3">##.## Dollar Image</h1>
                 <form>
                     <label for="imageURL">Paste an image URL or </label><input type="file"><br>
-                    <input type="url" id="imageURL" name="imageURL"><br>
+                    <input type="url" id="imageURL" name="imageURL"><br><br>
                     <label for="link">What's your ~magical~ link?</label><br>
-                    <input type="url" id="link" name="link" required><br>
+                    <input type="url" id="link" name="link" required><br><br>
                     <label for="displayName">Display name (optional)</label><br>
                     <input type="text" id="displayName" name="displayName"><br><br>
-                    <!-- <label for="color">Change the site colors (optional)</label><br>
-                    <input type="color" id="color" name="color"><br> -->
-                    <div id="paypal-button-container"></div>
-                    <button class="button" href="submitImage.html">Checkout</button>
+                    <div id="paypal-button-container" style="width: 30%;"></div>
                 </form>
             </section>
-            <!-- <footer class="modal-card-foot">
-                <button class="button is-success">Save changes</button>
-                <button class="button">Cancel</button>
-            </footer> -->
+            <footer class="modal-card-foot">
+                <button class="button is-primary" style="margin-left: 45%; width: 10%;">Checkout</button>
+            </footer>
         </div>
     </div>
 
