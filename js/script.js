@@ -37,3 +37,13 @@ shareYourImage("https://www.paypalobjects.com/ppdevdocs/img/docs/checkout/pp-ecx
 function renderDataAsHTML() {
     document.querySelector("").innerHTML = image;
 }
+
+document.getElementById("livechat").style.display = "none";
+
+function toggleLiveChat() {
+    document.getElementById("livechat").style.display = "block";
+}
+
+function closeLiveChat() {
+    document.getElementById("livechat").style.display = "none";
+}

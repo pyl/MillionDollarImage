@@ -34,6 +34,9 @@
         </div>
 
         <div id="navbarBasicExample" class="navbar-menu">
+            <div class="navbar-start">
+                <button class="button" onclick="toggleLiveChat()">Chat</button>
+            </div>
             <div class="navbar-end">
                 <div class="navbar-item">
                     <div class="buttons">
@@ -87,6 +90,17 @@
         .button .is-warning {
             width: 250px;
         }
+
+        #livechat {
+            background-color: grey;
+            height: 100%;
+            position: absolute;
+        }
+
+        #chatbox {
+            position: absolute;
+            bottom: 15px;
+        }
     </style>
 
     <div class="modal" id="modal">
@@ -118,7 +132,13 @@
         </div>
     </div>
 
+    <button class="delete" onclick="closeLiveChat()"></button>
+    <div class="column is-one-quarter" id="livechat">
+        <textarea class="textarea is-small" id="chatbox" placeholder="Type your message"></textarea>
+    </div>
+
     <section class="section" id="mainsect">
+
         <div class="container">
             <h1 class="title">Million Dollar Image</h1>
             <img id='milliondollarimage' src="https://www.w3schools.com/images/w3lynx_200.png">
