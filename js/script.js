@@ -6,15 +6,32 @@ images.orderByChild('price').limitToLast(1).once("value", snapshot => {
     shareYourImage(data);
 });
 
+function shareYourImage(data) {
+    var maxHeight = 500;
+    var maxWidth = 500;
+    const workingImage = data[Object.keys(data)[0]];
+    const mainContainer = document.getElementById("mainContainer");
+    let imageItem = `
+            <h1 class="title">Million Dollar Image</h1>
+            <img id='milliondollarimage' src="${workingImage.imageURL}">
+            <a
+                href="${workingImage.link}"
+                id="link">${workingImage.link}</a>
+            <p class="subtitle" id="byDisplayName">by ${workingImage.displayName}</p>`;
+    mainContainer.innerHTML = imageItem;
+}
+
 chatIcon.addEventListener("click", function() {
     const chatIconState = chatIcon.getAttribute("name");
     const chatIconImg = document.getElementById("chatIconImg");
     if (chatIconState === "closed") {
         chatIcon.setAttribute('name', 'opened');
         chatIconImg.src = 'images/closeChat.svg';
+        document.getElementById("livechat").style.display = "block";
     } else {
         chatIcon.setAttribute('name', 'closed');
         chatIconImg.src = 'images/chat.svg';
+        document.getElementById("livechat").style.display = "none";
     }
 });
 
@@ -40,35 +57,3 @@ paypal.Buttons({
     }
 }).render('#paypal-button-container');
 //This function displays Smart Payment Buttons on your web page.
-
-
-function shareYourImage(data) {
-    var maxHeight = 500;
-    var maxWidth = 500;
-    const workingImage = data[Object.keys(data)[0]];
-    const mainContainer = document.getElementById("mainContainer");
-    let imageItem = `
-            <h1 class="title">Million Dollar Image</h1>
-            <img id='milliondollarimage' src="${workingImage.imageURL}">
-            <a
-                href="${workingImage.link}"
-                id="link">${workingImage.link}</a>
-            <p class="subtitle" id="byDisplayName">by ${workingImage.displayName}</p>`;
-    mainContainer.innerHTML = imageItem;
-}
-
-shareYourImage("https://www.paypalobjects.com/ppdevdocs/img/docs/checkout/pp-ecxo-integration-patterns.png");
-//shareYourImage("https://www.w3schools.com/images/w3lynx_200.png");
-function renderDataAsHTML() {
-    document.querySelector("").innerHTML = image;
-}
-
-document.getElementById("livechat").style.display = "none";
-
-function toggleLiveChat() {
-    document.getElementById("livechat").style.display = "block";
-}
-
-function closeLiveChat() {
-    document.getElementById("livechat").style.display = "none";
-}
