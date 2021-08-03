@@ -3,7 +3,7 @@ const mainsect = document.querySelector("#mainsect");
 window.onload = event => {
   const images = firebase.database().ref();
 
-  images.on("value", snapshot => {
+  images.orderByChild('price').on("value", snapshot => {
     const data = snapshot.val();
     renderDataAsHtml(data);
   });
@@ -12,8 +12,9 @@ window.onload = event => {
 // EACH HAVE imageURL, link, displayName, price
 function renderDataAsHtml(data) {
     let images = ``;
-    for (const index in data) {
-        const image = data[index];
+    const keys = Object.keys(data).sort().reverse();
+    for (const key of keys) {
+        const image = data[key];
         console.log(image);
         images += createArchiveItem(image);
     }

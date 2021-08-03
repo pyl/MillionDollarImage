@@ -9,7 +9,7 @@
   },
   "emulators": {
     "hosting": {
-      "port": 5001
+      "port": 5002
     },
     "database": {
       "port": 3333

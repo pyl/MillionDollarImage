@@ -5,6 +5,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Million Dollar Image</title>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script defer src="/__/firebase/8.3.1/firebase.js"></script>
+    <!-- include only the Firebase features as you need -->
+    <script defer src="/__/firebase/8.3.1/firebase-database.js"></script>
+    <script defer src="/__/firebase/init.js?useEmulator=true"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" href="css/index.css" media="screen" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -21,9 +26,9 @@
 
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
-            <!-- <a class="navbar-item" href="https://bulma.io">
-                <img src="https://bulma.io/images/bulma-logo.png" width="112" height="28">
-            </a> -->
+            <div class="navbar-item" id="chatIcon" name="closed">
+                <img src="images/chat.svg" id="chatIconImg" width="36" height="28">
+            </div>
 
             <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false"
                 data-target="navbarBasicExample">
@@ -145,9 +150,9 @@
             <a
                 href="https://www.w3schools.com/images/w3lynx_200.png">https://www.w3schools.com/images/w3lynx_200.png</a>
             <p class="subtitle">by Anonymous</p>
+        <div class="container" id="mainContainer">
         </div>
     </section>
-
 </body>
 
 </html>
