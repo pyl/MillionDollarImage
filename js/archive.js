@@ -12,7 +12,6 @@ window.onload = event => {
 // EACH HAVE imageURL, link, displayName, price
 function renderDataAsHtml(data) {
     let images = ``;
-    console.log(typeof(data));
     const keys = Object.keys(data).sort().reverse();
     for (const key of keys) {
         const image = data[key];

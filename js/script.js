@@ -1,20 +1,20 @@
 const chatIcon = document.querySelector("#chatIcon");
 
-window.onload = event => {
-  const images = firebase.database().ref();
-  images.orderByChild('price').limitToLast(1).once("value", snapshot => {
+const images = firebase.database().ref();
+images.orderByChild('price').limitToLast(1).once("value", snapshot => {
     const data = snapshot.val();
-    console.log(data);
-    // renderDataAsHtml(data);
-  });
-};
+    shareYourImage(data);
+});
 
 chatIcon.addEventListener("click", function() {
     const chatIconState = chatIcon.getAttribute("name");
+    const chatIconImg = document.getElementById("chatIconImg");
     if (chatIconState === "closed") {
         chatIcon.setAttribute('name', 'opened');
+        chatIconImg.src = 'images/closeChat.svg';
     } else {
         chatIcon.setAttribute('name', 'closed');
+        chatIconImg.src = 'images/chat.svg';
     }
 });
 
@@ -42,19 +42,17 @@ paypal.Buttons({
 //This function displays Smart Payment Buttons on your web page.
 
 
-
-function shareYourImage(imglink) {
+function shareYourImage(data) {
     var maxHeight = 500;
     var maxWidth = 500;
-    var image = document.getElementById("milliondollarimage");
-    image.src = imglink;
-    let link = document.querySelector("link");   
+    const workingImage = data[Object.keys(data)[0]];
+    const mainContainer = document.getElementById("mainContainer");
+    let imageItem = `
+            <h1 class="title">Million Dollar Image</h1>
+            <img id='milliondollarimage' src="${workingImage.imageURL}">
+            <a
+                href="${workingImage.link}"
+                id="link">${workingImage.link}</a>
+            <p class="subtitle" id="byDisplayName">by ${workingImage.displayName}</p>`;
+    mainContainer.innerHTML = imageItem;
 }
-
-shareYourImage("https://www.paypalobjects.com/ppdevdocs/img/docs/checkout/pp-ecxo-integration-patterns.png");
-
-
-function renderDataAsHTML(data) {
-    document.querySelector("#mainContainer").innerHTML = image;
-}
-
