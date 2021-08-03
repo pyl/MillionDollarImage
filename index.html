@@ -16,8 +16,14 @@
 
 <body>
     <script
-        src="https://www.paypal.com/sdk/js?client-id=AdZ6x2lVaJMzftGmkgDrbtxhl_y5lk0X1vQjDchTq2eDZ18I82OuLV25ovW_47ngKF3BIsQ68Tf-ZxON"> // Required. Replace YOUR_CLIENT_ID with your sandbox client ID.
-        </script>
+        src="https://www.paypal.com/sdk/js?client-id=AS-PiHXbpimDzYb1oOdcmnL7wkPRDlv1ShGJJcmnNvGG29LCuHEpGlZzNaIgASePBGWXTd44DGpdaNNG"> // Required. Replace YOUR_CLIENT_ID with your sandbox client ID.
+         // Add your client ID and secret
+         const creds = require("./creds.json");
+    var PAYPAL_CLIENT = 'AS-PiHXbpimDzYb1oOdcmnL7wkPRDlv1ShGJJcmnNvGG29LCuHEpGlZzNaIgASePBGWXTd44DGpdaNNG';
+    var PAYPAL_SECRET = "";
+  // Point your server to the PayPal API
+    var PAYPAL_ORDER_API = 'https://api-m.paypal.com/v2/checkout/orders/';
+       </script>
 
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
