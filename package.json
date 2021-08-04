@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "cleverbot-free": "^1.1.6"
+    "cleverbot-free": "^1.1.6",
+    "mitsuku-api": "^0.2.1",
+    "uniq": "^1.0.1"
   }
 }
