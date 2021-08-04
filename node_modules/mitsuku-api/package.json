@@ -1,0 +1,30 @@
+{
+  "name": "mitsuku-api",
+  "version": "0.2.1",
+  "description": "Simple API for Mitsuku chatbot",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test",
+    "demo": "node demo/mitsuku-to-mitsuku.js"
+  },
+  "keywords": [
+    "api",
+    "Mitsuku",
+    "chatbot"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eleventigers/mitsuku-api"
+  },
+  "author": "eleventigers phonodelik@gmail.com",
+  "license": "Apache 2.0",
+  "dependencies": {
+    "bluebird": "^2.9.24",
+    "cheerio": "^0.19.0",
+    "superagent": "^1.2.0"
+  },
+  "devDependencies": {
+    "say": "^0.6.0",
+    "tape": "^4.0.0"
+  }
+}
