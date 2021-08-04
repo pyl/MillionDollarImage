@@ -28,7 +28,7 @@ const createArchiveItem = (image) => {
   let link = image.link;
   let price = image.price;
 
-  const imageId = `${price} Dollar Image`;
+  const imageId = `<span style='color: #00d1b2'>${price}</span> Dollar Image`;
 
   let archiveItem = `<div class="columns is-mobile is-centered is-vcentered">
                         <div class="column">

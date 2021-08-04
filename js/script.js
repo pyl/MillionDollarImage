@@ -20,8 +20,8 @@ function shareYourImage(data) {
     const mainContainer = document.getElementById("mainContainer");
     console.log(data)
     let imageItem = `
-            <h1 class="title">Million Dollar Image</h1>
-            <h1 class="subtitle">${workingImage.price}</h1>
+            <h1 class="title is-1">Million Dollar Image</h1>
+            <h3 class="title is-3">$<span style='color: #00d1b2'>${workingImage.price}</span></h1>
             <img id='milliondollarimage' style="height: ${h} !important; width: auto" src="${workingImage.imageURL}">
             <a
                 href="${workingImage.link}"
