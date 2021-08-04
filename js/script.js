@@ -204,7 +204,8 @@ chatIcon.addEventListener("click", function() {
     if (chatIconState === "closed") {
         chatIcon.setAttribute('name', 'opened');
         chatIconImg.src = 'images/closeChat.svg';
-        document.getElementById("livechat").style.display = "block";
+
+        document.getElementById("livechat").style.display = "inline";
     } else {
         chatIcon.setAttribute('name', 'closed');
         chatIconImg.src = 'images/chat.svg';
