@@ -21,8 +21,14 @@
 
 <body>
     <script
-        src="https://www.paypal.com/sdk/js?client-id=AdZ6x2lVaJMzftGmkgDrbtxhl_y5lk0X1vQjDchTq2eDZ18I82OuLV25ovW_47ngKF3BIsQ68Tf-ZxON"> // Required. Replace YOUR_CLIENT_ID with your sandbox client ID.
-        </script>
+        src="https://www.paypal.com/sdk/js?client-id=AS-PiHXbpimDzYb1oOdcmnL7wkPRDlv1ShGJJcmnNvGG29LCuHEpGlZzNaIgASePBGWXTd44DGpdaNNG"> // Required. Replace YOUR_CLIENT_ID with your sandbox client ID.
+         // Add your client ID and secret
+         const creds = require("./creds.json");
+    var PAYPAL_CLIENT = 'AS-PiHXbpimDzYb1oOdcmnL7wkPRDlv1ShGJJcmnNvGG29LCuHEpGlZzNaIgASePBGWXTd44DGpdaNNG';
+    var PAYPAL_SECRET = "";
+  // Point your server to the PayPal API
+    var PAYPAL_ORDER_API = 'https://api-m.paypal.com/v2/checkout/orders/';
+       </script>
 
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
@@ -94,7 +100,7 @@
         }
 
         #livechat {
-            background-color: grey;
+            background-color: #f0f0f0;
             height: 100%;
             position: absolute;
         }
@@ -120,16 +126,20 @@
                     <input type="url" id="link" name="link" required><br><br>
                     <label for="displayName">Display name (optional)</label><br>
                     <input type="text" id="displayName" name="displayName"><br><br>
+                    <label for="price">Enter Bid</label><br>
+                    <input type="text" id="price" name="price"><br><br>                    
                     <div id="paypal-button-container" style="width: 30%;"></div>
                 </form>
             </section>
             <footer class="modal-card-foot">
-                <button class="button is-primary" style="margin-left: 45%; width: 10%;">Checkout</button>
+                <button class="button is-primary" onclick="addToDatabase();" style="margin-left: 45%; width: 10%;">Checkout</button>
             </footer>
         </div>
     </div>
 
     <div class="column is-one-quarter" id="livechat" style="display: none;">
+        <div id="chat">hi</div>
+        <input cols="50" class="is-small" type="text" width="100%" id="chatDisplayName" placeholder="Display Name (optional)"></input>
         <textarea cols="50" class="is-small" id="chatbox" placeholder="Type your message"></textarea>
     </div>
 

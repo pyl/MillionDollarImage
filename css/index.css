@@ -1,4 +1,4 @@
- #milliondollarimage {
+#milliondollarimage {
     display:block;
     margin:auto;     
     object-fit: contain;
@@ -28,4 +28,44 @@ section {
 
 html, body {
     height: 100%;
+}
+
+#chatDisplayName {
+    position: absolute;
+    bottom: 0px;
+    left: 20px;
+    right: 10px;
+    margin-bottom: 90px;
+    width: 320px;
+    font-size: 20px;
+    z-index: 999;
+}
+
+#chatbox {
+    position: absolute;
+    bottom: 0px;
+    left: 20px;
+    right: 10px;
+    margin-bottom: 10px;
+    width: 320px;
+    font-size: 20px;
+    z-index: 9;
+}
+
+#chat {
+    list-style: none;
+    position: absolute;
+    bottom: 160px;
+    left: 20px;
+    font-size: 20px;
+    width: 320px;
+}
+
+.wrapOverflow {
+    height: auto !important;
+    white-space: unset !important;
+    width: 100%;
+    word-wrap: break-word;
+    font-size: 20px;
+    font-family: Arial;
 }
