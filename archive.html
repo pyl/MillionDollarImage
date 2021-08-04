@@ -43,6 +43,14 @@
         <p class="control is-expanded">
             <input class="input" type="text" id="search" placeholder="Find a historical archive item">
         </p>
+        <div class="select is-primary" style="margin-right: 10px;">
+            <select id="searchOption">
+                <option value="displayName">Display Name</option>
+                <option value="price">Price</option>
+                <option value="imageURL">Image URL</option>
+                <option value="link">Link</option>
+            </select>
+        </div>
         <p class="control">
             <a class="button is-primary" onclick="searchArchive()">Search</a>
         </p>
