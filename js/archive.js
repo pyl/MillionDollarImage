@@ -45,37 +45,60 @@ const createArchiveItem = (image) => {
 
 function searchArchive() {
     let input = document.querySelector("#search").value;
-    const images = firebase.database().ref("images");
+    const images1 = firebase.database().ref("images");
+    const images2 = firebase.database().ref("images");
+    const images3 = firebase.database().ref("images");
+    const images4 = firebase.database().ref("images");
 
-    const searchOption = document.querySelector("#searchOption").value;
+    images1.orderByChild("displayName").equalTo(input).on("child_added", (snap) => {
+        console.log(snap.val());
+        renderArchiveDataAsHtml(snap.val());
+    });
 
-    if(searchOption == "displayName") {
-        // input = input.toLowerCase();
-        images.orderByChild("displayName").equalTo(input).on("child_added", (snap) => {
-            console.log(snap.val());
-            renderArchiveDataAsHtml(snap.val());
-        });
-    } else if(searchOption == "price") {
-        if(input.substring(0, 1) == "$") {
-            input = input.substring(1);
-        }
-        images.orderByChild("price").equalTo(input).on("child_added", (snap) => {
-            console.log(snap.val());
-            renderArchiveDataAsHtml(snap.val());
-        });
-    } else if(searchOption == "imageURL") {
-        console.log(searchOption);
-        images.orderByChild("imageURL").equalTo(input).on("child_added", (snap) => {
-            console.log(snap.val());
-            renderArchiveDataAsHtml(snap.val());
-        });
-    } else if(searchOption == "link") {
-        console.log(searchOption);
-        images.orderByChild("link").equalTo(input).on("child_added", (snap) => {
-            console.log(snap.val());
-            renderArchiveDataAsHtml(snap.val());
-        });
-    }
+    images2.orderByChild("price").equalTo(input).on("child_added", (snap) => {
+        console.log(snap.val());
+        renderArchiveDataAsHtml(snap.val());
+    });
+
+    images3.orderByChild("imageURL").equalTo(input).on("child_added", (snap) => {
+        console.log(snap.val());
+        renderArchiveDataAsHtml(snap.val());
+    });
+
+    images4.orderByChild("link").equalTo(input).on("child_added", (snap) => {
+        console.log(snap.val());
+        renderArchiveDataAsHtml(snap.val());
+    });
+
+    // const searchOption = document.querySelector("#searchOption").value;
+
+    // if(searchOption == "displayName") {
+    //     input = input.toLowerCase();
+    //     images.orderByChild("displayName").equalTo(input).on("child_added", (snap) => {
+    //         console.log(snap.val());
+    //         renderArchiveDataAsHtml(snap.val());
+    //     });
+    // } else if(searchOption == "price") {
+    //     if(input.substring(0, 1) == "$") {
+    //         input = input.substring(1);
+    //     }
+    //     images.orderByChild("price").equalTo(input).on("child_added", (snap) => {
+    //         console.log(snap.val());
+    //         renderArchiveDataAsHtml(snap.val());
+    //     });
+    // } else if(searchOption == "imageURL") {
+    //     console.log(searchOption);
+    //     images.orderByChild("imageURL").equalTo(input).on("child_added", (snap) => {
+    //         console.log(snap.val());
+    //         renderArchiveDataAsHtml(snap.val());
+    //     });
+    // } else if(searchOption == "link") {
+    //     console.log(searchOption);
+    //     images.orderByChild("link").equalTo(input).on("child_added", (snap) => {
+    //         console.log(snap.val());
+    //         renderArchiveDataAsHtml(snap.val());
+    //     });
+    // }
 }
 
 function renderArchiveDataAsHtml(data) {
