@@ -1,18 +1,26 @@
 const chatIcon = document.querySelector("#chatIcon");
 
-const images = firebase.database().ref();
+const images = firebase.database().ref("/images");
+const chat = firebase.database().ref("/chat");
+
+
 images.orderByChild('price').limitToLast(1).once("value", snapshot => {
     const data = snapshot.val();
+    console.log(data)
     shareYourImage(data);
 });
+
+images.push(["hi"]);
 
 function shareYourImage(data) {
     var maxHeight = 500;
     var maxWidth = 500;
     const workingImage = data[Object.keys(data)[0]];
     const mainContainer = document.getElementById("mainContainer");
+    console.log(data)
     let imageItem = `
             <h1 class="title">Million Dollar Image</h1>
+            <h1 class="subtitle">${workingImage.price}</h1>
             <img id='milliondollarimage' src="${workingImage.imageURL}">
             <a
                 href="${workingImage.link}"
@@ -34,6 +42,26 @@ chatIcon.addEventListener("click", function() {
         document.getElementById("livechat").style.display = "none";
     }
 });
+console.log(images)
+function addToDatabase() {
+    const imgUrl = document.getElementById("imageURL").value;
+    const link = document.getElementById("link").value;
+    const displayName = document.getElementById("displayName").value;
+    const price = document.getElementById("price").value;
+    
+    images.push({
+        "displayName": displayName,
+        "imageURL": imgUrl,
+        "link": link,
+        "price": price        
+    });
+    images.orderByChild('price').limitToLast(1).once("value", snapshot => {
+            const data = snapshot.val();
+            console.log(data)
+            shareYourImage(data);
+        });
+}
+
 
 //Create paypal button
 paypal.Buttons({
@@ -42,7 +70,7 @@ paypal.Buttons({
     return actions.order.create({
         purchase_units: [{
         amount: {
-            value: '1.00'
+            value: '0.01'
         }
         }]
     });
@@ -50,21 +78,25 @@ paypal.Buttons({
     onApprove: function(data, actions) {
     // This function captures the funds from the transaction.
     return actions.order.capture().then(function(details) {
+        //details.transID
         // This function shows a transaction success message to your buyer.
         alert('Transaction completed by ' + details.payer.name.given_name);
         console.log("payment successful");
+        addToDatabase();
+        images.orderByChild('price').limitToLast(1).once("value", snapshot => {
+            const data = snapshot.val();
+            console.log(data)
+            shareYourImage(data);
+        });
     });
     }
 }).render('#paypal-button-container');
 //This function displays Smart Payment Buttons on your web page.
 
-
-
 // https://textboxwebsite.firebaseapp.com/
 // live chat
 var ref;
 var username = "lol";
-
 var firstmessage = 1;
 
 function setup() {
