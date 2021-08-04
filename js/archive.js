@@ -30,75 +30,50 @@ const createArchiveItem = (image) => {
 
   const imageId = `<span style='color: #00d1b2'>${price}</span> Dollar Image`;
 
-  let archiveItem = `<div class="columns is-mobile is-centered is-vcentered">
-                        <div class="column">
-                            <img src="${imageURL}" alt="${imageId}">
-                        </div>
-                        <div class="column has-text-left">
-                            <span class="title">$${imageId}</span><br><br>
-                            <span class="subtitle"><a href="${link}">${link}</a></span><br><br>
-                            <span class="subtitle">by ${displayName}</span>
-                        </div>
+  let archiveItem = `<div class="column is-one-quarter">
+                        <img src="${imageURL}" alt="${imageId}">
+                    </div>
+                    <div class="column is-one-quarter has-text-left">
+                        <span class="title">$${imageId}</span><br><br>
+                        <span class="subtitle"><a href="${link}">${link}</a></span><br><br>
+                        <span class="subtitle">by ${displayName}</span>
                     </div>`;
   return archiveItem;
 };
 
 function searchArchive() {
     let input = document.querySelector("#search").value;
-    const images1 = firebase.database().ref("images");
-    const images2 = firebase.database().ref("images");
-    const images3 = firebase.database().ref("images");
-    const images4 = firebase.database().ref("images");
+    const images = firebase.database().ref("images");
 
-    images1.orderByChild("displayName").equalTo(input).on("child_added", (snap) => {
-        console.log(snap.val());
-        renderArchiveDataAsHtml(snap.val());
-    });
+    const searchOption = document.querySelector("#searchOption").value;
 
-    images2.orderByChild("price").equalTo(input).on("child_added", (snap) => {
-        console.log(snap.val());
-        renderArchiveDataAsHtml(snap.val());
-    });
-
-    images3.orderByChild("imageURL").equalTo(input).on("child_added", (snap) => {
-        console.log(snap.val());
-        renderArchiveDataAsHtml(snap.val());
-    });
-
-    images4.orderByChild("link").equalTo(input).on("child_added", (snap) => {
-        console.log(snap.val());
-        renderArchiveDataAsHtml(snap.val());
-    });
-
-    // const searchOption = document.querySelector("#searchOption").value;
-
-    // if(searchOption == "displayName") {
-    //     input = input.toLowerCase();
-    //     images.orderByChild("displayName").equalTo(input).on("child_added", (snap) => {
-    //         console.log(snap.val());
-    //         renderArchiveDataAsHtml(snap.val());
-    //     });
-    // } else if(searchOption == "price") {
-    //     if(input.substring(0, 1) == "$") {
-    //         input = input.substring(1);
-    //     }
-    //     images.orderByChild("price").equalTo(input).on("child_added", (snap) => {
-    //         console.log(snap.val());
-    //         renderArchiveDataAsHtml(snap.val());
-    //     });
-    // } else if(searchOption == "imageURL") {
-    //     console.log(searchOption);
-    //     images.orderByChild("imageURL").equalTo(input).on("child_added", (snap) => {
-    //         console.log(snap.val());
-    //         renderArchiveDataAsHtml(snap.val());
-    //     });
-    // } else if(searchOption == "link") {
-    //     console.log(searchOption);
-    //     images.orderByChild("link").equalTo(input).on("child_added", (snap) => {
-    //         console.log(snap.val());
-    //         renderArchiveDataAsHtml(snap.val());
-    //     });
-    // }
+    if(searchOption == "displayName") {
+        input = input.toLowerCase();
+        images.orderByChild("displayName").equalTo(input).on("child_added", (snap) => {
+            console.log(snap.val());
+            renderArchiveDataAsHtml(snap.val());
+        });
+    } else if(searchOption == "price") {
+        if(input.substring(0, 1) == "$") {
+            input = input.substring(1);
+        }
+        images.orderByChild("price").equalTo(input).on("child_added", (snap) => {
+            console.log(snap.val());
+            renderArchiveDataAsHtml(snap.val());
+        });
+    } else if(searchOption == "imageURL") {
+        console.log(searchOption);
+        images.orderByChild("imageURL").equalTo(input).on("child_added", (snap) => {
+            console.log(snap.val());
+            renderArchiveDataAsHtml(snap.val());
+        });
+    } else if(searchOption == "link") {
+        console.log(searchOption);
+        images.orderByChild("link").equalTo(input).on("child_added", (snap) => {
+            console.log(snap.val());
+            renderArchiveDataAsHtml(snap.val());
+        });
+    }
 }
 
 function renderArchiveDataAsHtml(data) {
