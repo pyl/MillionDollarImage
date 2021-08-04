@@ -1,10 +1,13 @@
 const chatIcon = document.querySelector("#chatIcon");
 
-const images = firebase.database().ref();
+const images = firebase.database().ref("images");
 images.orderByChild('price').limitToLast(1).once("value", snapshot => {
     const data = snapshot.val();
     shareYourImage(data);
 });
+
+let h = Math.floor(window.innerHeight*.2);
+console.log(h);
 
 function shareYourImage(data) {
     var maxHeight = 500;
@@ -13,27 +16,13 @@ function shareYourImage(data) {
     const mainContainer = document.getElementById("mainContainer");
     let imageItem = `
             <h1 class="title">Million Dollar Image</h1>
-            <img id='milliondollarimage' src="${workingImage.imageURL}">
+            <img id='milliondollarimage' style="height: ${h} !important; width: auto" src="${workingImage.imageURL}">
             <a
                 href="${workingImage.link}"
                 id="link">${workingImage.link}</a>
             <p class="subtitle" id="byDisplayName">by ${workingImage.displayName}</p>`;
     mainContainer.innerHTML = imageItem;
 }
-
-chatIcon.addEventListener("click", function() {
-    const chatIconState = chatIcon.getAttribute("name");
-    const chatIconImg = document.getElementById("chatIconImg");
-    if (chatIconState === "closed") {
-        chatIcon.setAttribute('name', 'opened');
-        chatIconImg.src = 'images/closeChat.svg';
-        document.getElementById("livechat").style.display = "block";
-    } else {
-        chatIcon.setAttribute('name', 'closed');
-        chatIconImg.src = 'images/chat.svg';
-        document.getElementById("livechat").style.display = "none";
-    }
-});
 
 //Create paypal button
 paypal.Buttons({
@@ -63,45 +52,57 @@ paypal.Buttons({
 // https://textboxwebsite.firebaseapp.com/
 // live chat
 var ref;
-var username = "lol";
+var username = "";
+var message = "";
+const visibleChat = document.getElementById("chat");
+const chatDisplayName = document.getElementById('chatDisplayName');
+const chatbox = document.getElementById("chatbox");
 
-var firstmessage = 1;
+var database = firebase.database().ref("chat");
+database.on('value', gotData, errData);
 
-function setup() {
-  noCanvas();
-var database = firebase.database();
-ref = database.ref('text');
-ref.on('value', gotData, errData);
-
-document.getElementById("submitbutton").addEventListener("keyup", function(event) {
+chatbox.addEventListener("keyup", function(event) {
     event.preventDefault();
     if (event.keyCode === 13) {
-        if (document.getElementById('submitbutton').value != "") {
-          if (firstmessage === 0) {
-          buttonClick();
-        } else if (firstmessage === 1) {
-          firstButtonClick();
+        if (chatDisplayName.value) username = chatDisplayName.value;
+        if (chatbox.value) message = chatbox.value;
+        var d = new Date().toLocaleString();
+        var data = {
+            typing: message,
+            date: d,
+            nametag: username
         }
-      }
+        database.push(data);
+        chatbox.value = "";
     }
 });
 
-}
 function gotData(data) {
-  document.getElementById("chat").innerHTML = "";
-  var scores = data.val();
-  var keys = Object.keys(scores)
+  visibleChat.innerHTML = "";
+  var visibleChatLog = ``;
+  var chatLog = data.val();
+  var keys = Object.keys(chatLog)
   for (var i = 0; i < keys.length; i++) {
     var k = keys[i];
-    var text = scores[k].typing;
-    var timestamp = scores[k].date;
-    var un = scores[k].nametag;
-    displayText(text, timestamp, un);
+    var text = chatLog[k].typing;
+    var timestamp = chatLog[k].date;
+    var un = chatLog[k].nametag;
+    // displayText(text, timestamp, un);
+    visibleChatLog += makeChatMessage(text, timestamp, un);
   }
+  visibleChat.innerHTML = visibleChatLog;
   //delete old data
   if (keys.length > 40) {
-    ref.child(keys[0]).remove();
+    database.child(keys[0]).remove();
   }
+}
+
+function makeChatMessage(text, timestamp, user) {
+    var newElement = `<li class="wrapOverflow">
+                        <font color="#485fc7">${timestamp}</font> 
+                        <font color="#00d1b2">${user}</font>: ${text}
+                    </li>`
+    return newElement;
 }
 
 const prng = s => (typeof s!=='undefined'&&((l=s%2147483647)<=0&&(l+=2147483646)),((l=l*16807%2147483647)-1)/2147483646);
@@ -161,10 +162,22 @@ function buttonClick() {
 }
 function firstButtonClick() {
   username = document.getElementById('submitbutton').value;
-  firstmessage = 0;
-  document.getElementById("submitbutton").setAttribute("placeholder", "Message");
   document.getElementById('submitbutton').value = "";
   var usernametext = createP("Username: " + username, 0, 100);
   usernametext.style('text-align', 'right');
   usernametext.style('font-size', '30');
 }
+
+chatIcon.addEventListener("click", function() {
+    const chatIconState = chatIcon.getAttribute("name");
+    const chatIconImg = document.getElementById("chatIconImg");
+    if (chatIconState === "closed") {
+        chatIcon.setAttribute('name', 'opened');
+        chatIconImg.src = 'images/closeChat.svg';
+        document.getElementById("livechat").style.display = "block";
+    } else {
+        chatIcon.setAttribute('name', 'closed');
+        chatIconImg.src = 'images/chat.svg';
+        document.getElementById("livechat").style.display = "none";
+    }
+});

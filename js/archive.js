@@ -1,7 +1,7 @@
 const mainsect = document.querySelector("#mainsect");
 
 window.onload = event => {
-  const images = firebase.database().ref();
+  const images = firebase.database().ref("images");
 
   images.orderByChild('price').on("value", snapshot => {
     const data = snapshot.val();
@@ -11,14 +11,14 @@ window.onload = event => {
 
 // EACH HAVE imageURL, link, displayName, price
 function renderDataAsHtml(data) {
-    let images = ``;
+    let imgs = ``;
     const keys = Object.keys(data).sort().reverse();
     for (const key of keys) {
         const image = data[key];
         console.log(image);
-        images += createArchiveItem(image);
+        imgs += createArchiveItem(image);
     }
-    mainsect.innerHTML = images;
+    mainsect.innerHTML = imgs;
 }
 
 // Return an image object converted into HTML
