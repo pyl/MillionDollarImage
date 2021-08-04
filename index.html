@@ -126,11 +126,13 @@
                     <input type="url" id="link" name="link" required><br><br>
                     <label for="displayName">Display name (optional)</label><br>
                     <input type="text" id="displayName" name="displayName"><br><br>
+                    <label for="price">Enter Bid</label><br>
+                    <input type="text" id="price" name="price"><br><br>                    
                     <div id="paypal-button-container" style="width: 30%;"></div>
                 </form>
             </section>
             <footer class="modal-card-foot">
-                <button class="button is-primary" style="margin-left: 45%; width: 10%;">Checkout</button>
+                <button class="button is-primary" onclick="addToDatabase();" style="margin-left: 45%; width: 10%;">Checkout</button>
             </footer>
         </div>
     </div>

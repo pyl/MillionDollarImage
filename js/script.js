@@ -1,21 +1,25 @@
 const chatIcon = document.querySelector("#chatIcon");
 
-const images = firebase.database().ref("images");
+const images = firebase.database().ref("/images");
+const chat = firebase.database().ref("/chat");
+
 images.orderByChild('price').limitToLast(1).once("value", snapshot => {
     const data = snapshot.val();
+    console.log(data)
     shareYourImage(data);
 });
 
 let h = Math.floor(window.innerHeight*.2);
 console.log(h);
-
 function shareYourImage(data) {
     var maxHeight = 500;
     var maxWidth = 500;
     const workingImage = data[Object.keys(data)[0]];
     const mainContainer = document.getElementById("mainContainer");
+    console.log(data)
     let imageItem = `
             <h1 class="title">Million Dollar Image</h1>
+            <h1 class="subtitle">${workingImage.price}</h1>
             <img id='milliondollarimage' style="height: ${h} !important; width: auto" src="${workingImage.imageURL}">
             <a
                 href="${workingImage.link}"
@@ -24,6 +28,40 @@ function shareYourImage(data) {
     mainContainer.innerHTML = imageItem;
 }
 
+chatIcon.addEventListener("click", function() {
+    const chatIconState = chatIcon.getAttribute("name");
+    const chatIconImg = document.getElementById("chatIconImg");
+    if (chatIconState === "closed") {
+        chatIcon.setAttribute('name', 'opened');
+        chatIconImg.src = 'images/closeChat.svg';
+        document.getElementById("livechat").style.display = "block";
+    } else {
+        chatIcon.setAttribute('name', 'closed');
+        chatIconImg.src = 'images/chat.svg';
+        document.getElementById("livechat").style.display = "none";
+    }
+});
+console.log(images)
+function addToDatabase() {
+    const imgUrl = document.getElementById("imageURL").value;
+    const link = document.getElementById("link").value;
+    const displayName = document.getElementById("displayName").value;
+    const price = document.getElementById("price").value;
+    
+    images.push({
+        "displayName": displayName,
+        "imageURL": imgUrl,
+        "link": link,
+        "price": price        
+    });
+    images.orderByChild('price').limitToLast(1).once("value", snapshot => {
+            const data = snapshot.val();
+            console.log(data)
+            shareYourImage(data);
+        });
+}
+
+
 //Create paypal button
 paypal.Buttons({
     createOrder: function(data, actions) {
@@ -31,7 +69,7 @@ paypal.Buttons({
     return actions.order.create({
         purchase_units: [{
         amount: {
-            value: '1.00'
+            value: '0.01'
         }
         }]
     });
@@ -39,15 +77,20 @@ paypal.Buttons({
     onApprove: function(data, actions) {
     // This function captures the funds from the transaction.
     return actions.order.capture().then(function(details) {
+        //details.transID
         // This function shows a transaction success message to your buyer.
         alert('Transaction completed by ' + details.payer.name.given_name);
         console.log("payment successful");
+        addToDatabase();
+        images.orderByChild('price').limitToLast(1).once("value", snapshot => {
+            const data = snapshot.val();
+            console.log(data)
+            shareYourImage(data);
+        });
     });
     }
 }).render('#paypal-button-container');
 //This function displays Smart Payment Buttons on your web page.
-
-
 
 // https://textboxwebsite.firebaseapp.com/
 // live chat
