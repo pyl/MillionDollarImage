@@ -1,3 +1,5 @@
+// const cleverbot = require("cleverbot-free");
+
 const chatIcon = document.querySelector("#chatIcon");
 
 const images = firebase.database().ref("/images");
