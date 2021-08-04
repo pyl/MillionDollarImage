@@ -1,4 +1,10 @@
 // const cleverbot = require("cleverbot-free");
+// var m = require('mitsuku-api')();
+
+// m.send('hello world')
+//   .then(function(response){
+//     console.log(response);
+//   });
 
 const chatIcon = document.querySelector("#chatIcon");
 
@@ -137,65 +143,9 @@ function makeChatMessage(text, timestamp, user) {
 
 const prng = s => (typeof s!=='undefined'&&((l=s%2147483647)<=0&&(l+=2147483646)),((l=l*16807%2147483647)-1)/2147483646);
 
-function charToNumber (s, i) {
-    return parseInt(s.charAt(i), 36) - 9;
-}
-function sumChars (s) {
-    var i = s.length, r = 0;
-    while (--i >= 0) r += charToNumber(s, i);
-    return r;
-}
-
-function displayText(t, ts, u) {
-
-    var li = createElement("li", ts.fontcolor('rgb(' + prng(sumChars(u))*255 + ',' + prng(sumChars(u))*255 + ',' + prng(sumChars(u))*255 + ')') + " " + u.fontcolor('rgb(' + prng(sumChars(u))*255 + ',' + prng(sumChars(u))*255 + ',' + prng(sumChars(u))*255 + ')') + ": " + linkify(t));
-    li.style("font-size","20px");
-    li.style("font-family","Arial");
-
-    li.parent("chat");
-    if (checkURL(t)) {
-    var val = t,
-                src = val,
-                img = document.createElement('img');
-                img.src = src;
-                img.height = "250"
-                img.width = "250"
-                document.getElementById('chat').appendChild(img);
-
-    }
-
-}
-function linkify(text) {
-    var urlRegex =/(\b(https?|ftp|file):\/\/[-A-Z0-9+&@#\/%?=~_|!:,.;]*[-A-Z0-9+&@#\/%=~_|])/ig;
-    return text.replace(urlRegex, function(url) {
-    return '<a href="' + url + '">' + url + '</a>';
-    });
-}
-
-function checkURL(url) {
-    return(url.match(/\.(jpeg|jpg|gif|png)$/) != null);
-}
-
 function errData(err) {
   console.log("error")
   console.log(err)
-}
-function buttonClick() {
-  var d = new Date().toLocaleString();
-  var data = {
-    typing: document.getElementById('submitbutton').value,
-    date: d,
-    nametag: username
-  }
-  ref.push(data);
-  document.getElementById('submitbutton').value = "";
-}
-function firstButtonClick() {
-  username = document.getElementById('submitbutton').value;
-  document.getElementById('submitbutton').value = "";
-  var usernametext = createP("Username: " + username, 0, 100);
-  usernametext.style('text-align', 'right');
-  usernametext.style('font-size', '30');
 }
 
 chatIcon.addEventListener("click", function() {
@@ -211,3 +161,23 @@ chatIcon.addEventListener("click", function() {
         document.getElementById("livechat").style.display = "none";
     }
 });
+
+// function talkToRose() {
+//     var xhr = new XMLHttpRequest();
+//     xhr.open("POST", 'https://ec2-54-215-197-164.us-west-1.compute.amazonaws.com/ui.php', true);
+//     xhr.setRequestHeader('Content-Type', 'application/json');
+//     xhr.send(JSON.stringify({
+//         user: "hey",
+//         message: "hey"
+//     }));
+//     console.log("here");
+//     xhr.addEventListener("readystatechange", e => {
+//     if (xhr.readyState === 4 && xhr.status === 200) {
+//         let response = xhr.responseText;
+//         // JSON.parse()
+//         console.log(response);
+//     }
+//     console.log("now here");
+//     }, false);
+// }
+// talkToRose();
