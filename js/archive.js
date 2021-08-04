@@ -44,28 +44,38 @@ const createArchiveItem = (image) => {
 };
 
 function searchArchive() {
-    const input = document.querySelector("#search").value;
+    let input = document.querySelector("#search").value;
     const images = firebase.database().ref("images");
 
-    images.orderByChild("displayName").equalTo(input).on("child_added", (snap) => {
-        console.log(snap.val());
-        renderArchiveDataAsHtml(snap.val());
-    });
+    const searchOption = document.querySelector("#searchOption").value;
 
-    // images.orderByChild("price").equalTo(input).on("child_added", (snap) => {
-    //     console.log(snap.val());
-    //     renderArchiveDataAsHtml(snap.val());
-    // });
-
-    // images.orderByChild("imageURL").equalTo(input).on("child_added", (snap) => {
-    //     console.log(snap.val());
-    //     renderArchiveDataAsHtml(snap.val());
-    // });
-
-    // images.orderByChild("link").equalTo(input).on("child_added", (snap) => {
-    //     console.log(snap.val());
-    //     renderArchiveDataAsHtml(snap.val());
-    // });
+    if(searchOption == "displayName") {
+        // input = input.toLowerCase();
+        images.orderByChild("displayName").equalTo(input).on("child_added", (snap) => {
+            console.log(snap.val());
+            renderArchiveDataAsHtml(snap.val());
+        });
+    } else if(searchOption == "price") {
+        if(input.substring(0, 1) == "$") {
+            input = input.substring(1);
+        }
+        images.orderByChild("price").equalTo(input).on("child_added", (snap) => {
+            console.log(snap.val());
+            renderArchiveDataAsHtml(snap.val());
+        });
+    } else if(searchOption == "imageURL") {
+        console.log(searchOption);
+        images.orderByChild("imageURL").equalTo(input).on("child_added", (snap) => {
+            console.log(snap.val());
+            renderArchiveDataAsHtml(snap.val());
+        });
+    } else if(searchOption == "link") {
+        console.log(searchOption);
+        images.orderByChild("link").equalTo(input).on("child_added", (snap) => {
+            console.log(snap.val());
+            renderArchiveDataAsHtml(snap.val());
+        });
+    }
 }
 
 function renderArchiveDataAsHtml(data) {
