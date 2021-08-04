@@ -42,3 +42,34 @@ const createArchiveItem = (image) => {
                     </div>`;
   return archiveItem;
 };
+
+function searchArchive() {
+    const input = document.querySelector("#search").value;
+    const images = firebase.database().ref("images");
+
+    images.orderByChild("displayName").equalTo(input).on("child_added", (snap) => {
+        console.log(snap.val());
+        renderArchiveDataAsHtml(snap.val());
+    });
+
+    // images.orderByChild("price").equalTo(input).on("child_added", (snap) => {
+    //     console.log(snap.val());
+    //     renderArchiveDataAsHtml(snap.val());
+    // });
+
+    // images.orderByChild("imageURL").equalTo(input).on("child_added", (snap) => {
+    //     console.log(snap.val());
+    //     renderArchiveDataAsHtml(snap.val());
+    // });
+
+    // images.orderByChild("link").equalTo(input).on("child_added", (snap) => {
+    //     console.log(snap.val());
+    //     renderArchiveDataAsHtml(snap.val());
+    // });
+}
+
+function renderArchiveDataAsHtml(data) {
+    let images = ``;
+    images += createArchiveItem(data);
+    document.querySelector("#mainsect").innerHTML = images;
+}
