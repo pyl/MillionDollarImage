@@ -38,7 +38,7 @@ html, body {
     margin-bottom: 90px;
     width: 320px;
     font-size: 20px;
-    z-index: 999;
+    z-index: 99;
 }
 
 #chatbox {

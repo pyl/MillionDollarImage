@@ -29,21 +29,6 @@ function shareYourImage(data) {
             <p class="subtitle" id="byDisplayName">by ${workingImage.displayName}</p>`;
     mainContainer.innerHTML = imageItem;
 }
-
-chatIcon.addEventListener("click", function() {
-    const chatIconState = chatIcon.getAttribute("name");
-    const chatIconImg = document.getElementById("chatIconImg");
-    if (chatIconState === "closed") {
-        chatIcon.setAttribute('name', 'opened');
-        chatIconImg.src = 'images/closeChat.svg';
-        document.getElementById("livechat").style.display = "block";
-    } else {
-        chatIcon.setAttribute('name', 'closed');
-        chatIconImg.src = 'images/chat.svg';
-        document.getElementById("livechat").style.display = "none";
-    }
-});
-console.log(images)
 function addToDatabase() {
     const imgUrl = document.getElementById("imageURL").value;
     const link = document.getElementById("link").value;
