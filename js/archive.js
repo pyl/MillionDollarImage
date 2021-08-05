@@ -30,15 +30,13 @@ const createArchiveItem = (image) => {
 
   const imageId = `<span style='color: #00d1b2'>${price}</span> Dollar Image`;
 
-  let archiveItem = `<div class="columns is-mobile is-centered is-vcentered">
-                        <div class="column">
-                            <img src="${imageURL}" alt="${imageId}">
-                        </div>
-                        <div class="column has-text-left">
-                            <span class="title">$${imageId}</span><br><br>
-                            <span class="subtitle"><a href="${link}">${link}</a></span><br><br>
-                            <span class="subtitle">by ${displayName}</span>
-                        </div>
+  let archiveItem = `<div class="column is-one-quarter">
+                        <img src="${imageURL}" alt="${imageId}">
+                    </div>
+                    <div class="column is-one-quarter has-text-left">
+                        <span class="title">$${imageId}</span><br><br>
+                        <span class="subtitle"><a href="${link}">${link}</a></span><br><br>
+                        <span class="subtitle">by ${displayName}</span>
                     </div>`;
   return archiveItem;
 };
@@ -50,7 +48,7 @@ function searchArchive() {
     const searchOption = document.querySelector("#searchOption").value;
 
     if(searchOption == "displayName") {
-        // input = input.toLowerCase();
+        input = input.toLowerCase();
         images.orderByChild("displayName").equalTo(input).on("child_added", (snap) => {
             console.log(snap.val());
             renderArchiveDataAsHtml(snap.val());
