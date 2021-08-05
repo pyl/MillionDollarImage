@@ -15,17 +15,48 @@ const chat = firebase.database().ref("/chat");
 var storage = firebase.app().storage();
 var pathReference = storage.ref();
 var gsReference = storage.refFromURL('gs://million-dollar-image.appspot.com/PaulTeX.pdf');
-var starsRef = pathReference.child('babygoat.jpeg');
 
 
-console.log("test")
-starsRef.getDownloadURL()
-.then((url) => {
-    console.log(url);
-  // Insert url into an <img> tag to "download"
-})
+
+var globalimg;
+function uploadAndReturnFile() {
+
+    let fileUpload = document.getElementById("fileinput");
+    var firstFile = fileUpload.files[0];
+    let name = firstFile.name;
+    let storageRef = storage.ref(name);
+    let uploadTask = storageRef.put(firstFile);
+
+    uploadTask.on('state_changed', snapshot=> {
+        var starsRef = pathReference.child(name);
+        starsRef.getDownloadURL()
+        .then((url) => {
+            console.log(url);
+            globalimg = url;
 
 
+
+
+            const imgUrl = document.getElementById("imageURL").value;
+            const link = document.getElementById("link").value;
+            const displayName = document.getElementById("displayName").value;
+            const price = parseFloat(document.getElementById("price").value);
+            const fileDom = document.getElementById("fileinput");
+            
+            images.push({
+                "displayName": displayName,
+                "imageURL": url,
+                "link": link,
+                "price": price        
+            });
+            images.orderByChild('price').limitToLast(1).once("value", snapshot => {
+            const data = snapshot.val();
+            shareYourImage(data);
+
+            });
+        })
+    })
+}
 
 
 images.orderByChild('price').limitToLast(1).once("value", snapshot => {
@@ -52,23 +83,31 @@ function shareYourImage(data) {
             <p class="subtitle" id="byDisplayName">by ${workingImage.displayName}</p>`;
     mainContainer.innerHTML = imageItem;
 }
+
+var button = document.getElementById('checkoutButton'); // add id="my-button" into html
+button.addEventListener('click', addToDatabase);
+
+
+
 function addToDatabase() {
+        
     const imgUrl = document.getElementById("imageURL").value;
     const link = document.getElementById("link").value;
     const displayName = document.getElementById("displayName").value;
-    const price = document.getElementById("price").value;
+    const price = parseFloat(document.getElementById("price").value);
+    const fileDom = document.getElementById("fileinput");
     
-    images.push({
-        "displayName": displayName,
-        "imageURL": imgUrl,
-        "link": link,
-        "price": price        
-    });
-    images.orderByChild('price').limitToLast(1).once("value", snapshot => {
-            const data = snapshot.val();
-         
-            shareYourImage(data);
+    if(fileDom.files.length == 0) {
+        
+        images.push({
+            "displayName": displayName,
+            "imageURL": imgUrl,
+            "link": link,
+            "price": price        
         });
+    } else {
+        uploadAndReturnFile();
+    }
 }
 
 
@@ -76,10 +115,11 @@ function addToDatabase() {
 paypal.Buttons({
     createOrder: function(data, actions) {
     // This function sets up the details of the transaction, including the amount and line item details.
+    const price = parseFloat(document.getElementById("price").value);
     return actions.order.create({
         purchase_units: [{
         amount: {
-            value: '0.01'
+            value: price
         }
         }]
     });
@@ -90,14 +130,8 @@ paypal.Buttons({
         //details.transID
         // This function shows a transaction success message to your buyer.
         alert('Transaction completed by ' + details.payer.name.given_name);
-      
         addToDatabase();
-        images.orderByChild('price').limitToLast(1).once("value", snapshot => {
-            const data = snapshot.val();
-     
-
-            shareYourImage(data);
-        });
+    
     });
     }
 }).render('#paypal-button-container');
