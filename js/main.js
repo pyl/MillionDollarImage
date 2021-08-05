@@ -199,7 +199,11 @@ database.on('value', gotData, errData);
 chatbox.addEventListener("keyup", function(event) {
     event.preventDefault();
     if (event.keyCode === 13) {
-        if (chatDisplayName.value) username = chatDisplayName.value;
+        if (chatDisplayName.value) {
+            username = chatDisplayName.value;
+        } else {
+            username = "Anonymous";
+        }
         if (chatbox.value) message = chatbox.value;
         var d = new Date().toLocaleString();
         var data = {
@@ -217,6 +221,8 @@ chatbox.addEventListener("keyup", function(event) {
                     if (personalityForgeUserToId.hasOwnProperty(user)) talkToPersonalityForge(personalityForgeUserToId[user], message, username);
                     mentioned = true;
                 }
+                message = message.replace(mention, "");
+                console.log(message);
             }
         }
         if (!mentioned) talkToPersonalityForge(personalityForgeBotIds[generateRandomInteger(5)], message, username);
