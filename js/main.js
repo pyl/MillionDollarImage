@@ -18,6 +18,8 @@ images.orderByChild('price').limitToLast(1).once("value", snapshot => {
     shareYourImage(data);
 });
 
+
+
 let h = Math.floor(window.innerHeight*.2);
 console.log(h);
 function shareYourImage(data) {

@@ -11,9 +11,11 @@ const chatIcon = document.querySelector("#chatIcon");
 const images = firebase.database().ref("/images");
 const chat = firebase.database().ref("/chat");
 
+//var storage = firebase.app().storage("/images");
+
 images.orderByChild('price').limitToLast(1).once("value", snapshot => {
     const data = snapshot.val();
-    console.log(data)
+    console.log(data);
     shareYourImage(data);
 });
 
