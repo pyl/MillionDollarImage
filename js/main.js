@@ -12,22 +12,36 @@ const chatIcon = document.querySelector("#chatIcon");
 const images = firebase.database().ref("/images");
 const chat = firebase.database().ref("/chat");
 
+var storage = firebase.app().storage();
+var pathReference = storage.ref();
+var gsReference = storage.refFromURL('gs://million-dollar-image.appspot.com/PaulTeX.pdf');
+var starsRef = pathReference.child('babygoat.jpeg');
+
+
+console.log("test")
+starsRef.getDownloadURL()
+.then((url) => {
+    console.log(url);
+  // Insert url into an <img> tag to "download"
+})
+
+
+
+
 images.orderByChild('price').limitToLast(1).once("value", snapshot => {
     const data = snapshot.val();
-    console.log(data)
+ 
     shareYourImage(data);
 });
 
-
-
 let h = Math.floor(window.innerHeight*.2);
-console.log(h);
+
 function shareYourImage(data) {
     var maxHeight = 500;
     var maxWidth = 500;
     const workingImage = data[Object.keys(data)[0]];
     const mainContainer = document.getElementById("mainContainer");
-    console.log(data)
+
     let imageItem = `
             <h1 class="title is-1">Million Dollar Image</h1>
             <h3 class="title is-3">$<span style='color: #00d1b2'>${workingImage.price}</span></h1>
@@ -52,7 +66,7 @@ function addToDatabase() {
     });
     images.orderByChild('price').limitToLast(1).once("value", snapshot => {
             const data = snapshot.val();
-            console.log(data)
+         
             shareYourImage(data);
         });
 }
@@ -76,11 +90,12 @@ paypal.Buttons({
         //details.transID
         // This function shows a transaction success message to your buyer.
         alert('Transaction completed by ' + details.payer.name.given_name);
-        console.log("payment successful");
+      
         addToDatabase();
         images.orderByChild('price').limitToLast(1).once("value", snapshot => {
             const data = snapshot.val();
-            console.log(data)
+     
+
             shareYourImage(data);
         });
     });
