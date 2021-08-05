@@ -12,6 +12,7 @@
     <script defer src="/__/firebase/init.js?useEmulator=true"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css">
     <link rel="stylesheet" type="text/css" href="css/index.css" media="screen" />
+    <link rel="icon" type="image/png" href="images/favicon.png">
     <script defer src="js/archive.js"></script>
 </head>
 
@@ -45,10 +46,11 @@
         </p>
         <div class="select is-primary" style="margin-right: 10px;">
             <select id="searchOption">
+                <option value="all">Search All</option>
                 <option value="displayName">Display Name</option>
                 <option value="price">Price</option>
-                <option value="imageURL">Image URL</option>
                 <option value="link">Link</option>
+                <option value="imageURL">Image URL</option>
             </select>
         </div>
         <p class="control">

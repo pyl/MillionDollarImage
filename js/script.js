@@ -6,7 +6,16 @@
 //     console.log(response);
 //   });
 
+const usernameBase = ["yasserx_", "wriosw", "alejandro_venegas250", "KrabbyBoii", "bfresh98", "Zorcutt", "OmegaPraetor",
+    "IMPAAUL", "gamasthelazy", "DwayneRaven", "jackisjaded", "kohaku05290", "ravilishac", "levimattos",
+    "Hellspawn932", "TrickyRose", "reganisit", "Popoye_222", "genshinimpactfan1", "oreorenzo", "StarOfElyon"];
+const personalityForgeBotIds = ["2", "6", "16051", "136579", "149852"];
+let personalityForgeUserToId = {"yasserx_": "2", "wriosw": "6", "alejandro_venegas250": "16051", 
+    "KrabbyBoii": "136579", "bfresh98": "149852"};
+let currentUserToId = [0, 1, 2, 3, 4];
+var currentMessage = "hey, how are you";
 const chatIcon = document.querySelector("#chatIcon");
+const mainContainer = document.getElementById("mainContainer");
 
 const images = firebase.database().ref("/images");
 const chat = firebase.database().ref("/chat");
@@ -60,18 +69,56 @@ function uploadAndReturnFile() {
 
 images.orderByChild('price').limitToLast(1).once("value", snapshot => {
     const data = snapshot.val();
- 
     shareYourImage(data);
 });
 
-let h = Math.floor(window.innerHeight*.2);
+function generateRandomInteger(max) {
+    return Math.floor(Math.random() * max);
+}
+function getKeyByValue(object, value) {
+  return Object.keys(object).find(key => object[key] === value);
+}
 
+function switchUsernames() {
+    for (user in personalityForgeUserToId) {
+        let newUser = generateRandomInteger(21);
+        if (!currentUserToId.includes(newUser)) {
+            personalityForgeUserToId[usernameBase[newUser]] = personalityForgeUserToId[user];
+            delete personalityForgeUserToId[user];
+            currentUserToId.push(newUser);
+        }
+    }
+    currentUserToId.splice(0, 5);
+}
+function callEveryHour() {
+    setInterval(switchUsernames, 1000 * 60 * 60);
+}
+// function botConversation() {
+//     talkToPersonalityForge(personalityForgeBotIds[generateRandomInteger(5)], currentMessage, "newPerson");
+//     console.log(currentMessage);
+//     talkToPersonalityForge(personalityForgeBotIds[generateRandomInteger(5)], currentMessage, "anotherPerson");
+//     console.log(currentMessage);
+// }
+// botConversation();
+
+// set up a function that runs every so often (specifically every 3 hours here)
+var nextDate = new Date();
+if (nextDate.getMinutes() === 0) { // You can check for seconds here too
+    callEveryHour();
+} else {
+    nextDate.setHours(nextDate.getHours() + 3);
+    nextDate.setMinutes(0);
+    nextDate.setSeconds(0);// I wouldn't do milliseconds too ;)
+
+    var difference = nextDate - new Date();
+    setTimeout(callEveryHour, difference);
+}
+
+let h = Math.floor(window.innerHeight*.2);
 function shareYourImage(data) {
     var maxHeight = 500;
     var maxWidth = 500;
     const workingImage = data[Object.keys(data)[0]];
-    const mainContainer = document.getElementById("mainContainer");
-
     let imageItem = `
             <h1 class="title is-1">Million Dollar Image</h1>
             <h3 class="title is-3">$<span style='color: #00d1b2'>${workingImage.price}</span></h1>
@@ -136,7 +183,6 @@ paypal.Buttons({
 }).render('#paypal-button-container');
 //This function displays Smart Payment Buttons on your web page.
 
-// https://textboxwebsite.firebaseapp.com/
 // live chat
 var ref;
 var username = "";
@@ -144,6 +190,7 @@ var message = "";
 const visibleChat = document.getElementById("chat");
 const chatDisplayName = document.getElementById('chatDisplayName');
 const chatbox = document.getElementById("chatbox");
+const mentionPattern = /\B@[a-z0-9_-]+/gi;
 
 var database = firebase.database().ref("chat");
 database.on('value', gotData, errData);
@@ -160,10 +207,47 @@ chatbox.addEventListener("keyup", function(event) {
             nametag: username
         }
         database.push(data);
+        let mentions = message.match(mentionPattern);
+        let mentioned = false;
+        if (mentions) {
+            for (mention of mentions) {
+                if (mention.length > 1) {
+                    let user = mention.substring(1);
+                    if (personalityForgeUserToId.hasOwnProperty(user)) talkToPersonalityForge(personalityForgeUserToId[user], message, username);
+                    mentioned = true;
+                }
+            }
+        }
+        if (!mentioned) talkToPersonalityForge(personalityForgeBotIds[generateRandomInteger(5)], message, username);
         chatbox.value = "";
     }
 });
 
+// send a message to the specified bot and receive a message in return
+function talkToPersonalityForge(chatBotID, message, externalID) {
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", `https://www.personalityforge.com/api/chat/?apiKey=4ufxHcmAff8EL8q1&chatBotID=${chatBotID}&message=${message}&externalID=${externalID}`, true);
+    xhr.send(null);
+    (function wait() {
+        if ( xhr.readyState === 4 && xhr.status === 200 ) {
+            const chatBotUsername = getKeyByValue(personalityForgeUserToId, chatBotID);
+            var d = new Date().toLocaleString();
+            var data = {
+                typing: JSON.parse(xhr.response)['message']['message'],
+                date: d,
+                nametag: chatBotUsername
+            }
+            database.push(data);
+            console.log(JSON.parse(xhr.response)['message']['message']);
+            currentMessage = JSON.parse(xhr.response)['message']['message'];
+            return 0;
+        } else {
+            setTimeout( wait, 100 );
+        }
+    })();
+}
+
+// update the chat appearance
 function gotData(data) {
   visibleChat.innerHTML = "";
   var visibleChatLog = ``;
@@ -174,11 +258,10 @@ function gotData(data) {
     var text = chatLog[k].typing;
     var timestamp = chatLog[k].date;
     var un = chatLog[k].nametag;
-    // displayText(text, timestamp, un);
     visibleChatLog += makeChatMessage(text, timestamp, un);
   }
   visibleChat.innerHTML = visibleChatLog;
-  //delete old data
+  // delete old data
   if (keys.length > 40) {
     database.child(keys[0]).remove();
   }
@@ -192,13 +275,12 @@ function makeChatMessage(text, timestamp, user) {
     return newElement;
 }
 
-const prng = s => (typeof s!=='undefined'&&((l=s%2147483647)<=0&&(l+=2147483646)),((l=l*16807%2147483647)-1)/2147483646);
-
 function errData(err) {
   console.log("error")
   console.log(err)
 }
 
+// toggle chat open/close
 chatIcon.addEventListener("click", function() {
     const chatIconState = chatIcon.getAttribute("name");
     const chatIconImg = document.getElementById("chatIconImg");
@@ -213,23 +295,3 @@ chatIcon.addEventListener("click", function() {
         document.getElementById("livechat").style.display = "none";
     }
 });
-
-// function talkToRose() {
-//     var xhr = new XMLHttpRequest();
-//     xhr.open("POST", 'https://ec2-54-215-197-164.us-west-1.compute.amazonaws.com/ui.php', true);
-//     xhr.setRequestHeader('Content-Type', 'application/json');
-//     xhr.send(JSON.stringify({
-//         user: "hey",
-//         message: "hey"
-//     }));
-//     console.log("here");
-//     xhr.addEventListener("readystatechange", e => {
-//     if (xhr.readyState === 4 && xhr.status === 200) {
-//         let response = xhr.responseText;
-//         // JSON.parse()
-//         console.log(response);
-//     }
-//     console.log("now here");
-//     }, false);
-// }
-// talkToRose();
