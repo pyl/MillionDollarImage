@@ -23,13 +23,13 @@
 <body>
     <script
         src="https://www.paypal.com/sdk/js?client-id=AS-PiHXbpimDzYb1oOdcmnL7wkPRDlv1ShGJJcmnNvGG29LCuHEpGlZzNaIgASePBGWXTd44DGpdaNNG"> // Required. Replace YOUR_CLIENT_ID with your sandbox client ID.
-         // Add your client ID and secret
-         const creds = require("./creds.json");
-    var PAYPAL_CLIENT = 'AS-PiHXbpimDzYb1oOdcmnL7wkPRDlv1ShGJJcmnNvGG29LCuHEpGlZzNaIgASePBGWXTd44DGpdaNNG';
-    var PAYPAL_SECRET = "";
-  // Point your server to the PayPal API
-    var PAYPAL_ORDER_API = 'https://api-m.paypal.com/v2/checkout/orders/';
-       </script>
+            // Add your client ID and secret
+            const creds = require("./creds.json");
+            var PAYPAL_CLIENT = 'AS-PiHXbpimDzYb1oOdcmnL7wkPRDlv1ShGJJcmnNvGG29LCuHEpGlZzNaIgASePBGWXTd44DGpdaNNG';
+            var PAYPAL_SECRET = "";
+            // Point your server to the PayPal API
+            var PAYPAL_ORDER_API = 'https://api-m.paypal.com/v2/checkout/orders/';
+        </script>
 
     <nav class="navbar" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
@@ -71,49 +71,6 @@
         }
     </script>
 
-    <style>
-        .modal-card {
-            width: 95%;
-        }
-
-        .modal-card-body {
-            text-align: left;
-        }
-
-        .modal-card-body h1 {
-            margin-left: 7.5%;
-        }
-
-        .modal-card-body form {
-            margin-left: 7.5%;
-        }
-
-        .modal-card-body input {
-            width: 85%;
-        }
-
-        .delete {
-            float: right;
-        }
-
-        .button .is-warning {
-            width: 250px;
-        }
-
-        #livechat {
-            background-color: #f0f0f0;
-            height: 100%;
-            position: absolute;
-            left:0;
-            top:0;
-        }
-
-        #chatbox {
-            position: absolute;
-            bottom: 15px;
-        }
-    </style>
-
     <div class="modal" id="modal">
         <div class="modal-background"></div>
         <div class="modal-card">
@@ -130,23 +87,26 @@
                     <label for="displayName">Display name (optional)</label><br>
                     <input type="text" id="displayName" name="displayName"><br><br>
                     <label for="price">Enter Bid</label><br>
-                    <input type="text" id="price" name="price"><br><br>                    
+                    <input type="text" id="price" name="price"><br><br>
                     <div id="paypal-button-container" style="width: 30%;"></div>
                 </form>
             </section>
             <footer class="modal-card-foot">
-                <button class="button is-primary" onclick="addToDatabase();" style="margin-left: 45%; width: 10%;">Checkout</button>
+                <button class="button is-primary" onclick="addToDatabase();"
+                    style="margin-left: 45%; width: 10%;">Checkout</button>
             </footer>
         </div>
     </div>
-    <div class="column is-one-quarter" id="livechat" style="display: none;">
-        <div id="chat">hi</div>
-        <input cols="50" class="is-small" type="text" width="100%" id="chatDisplayName" placeholder="Display Name (optional)"></input>
-        <textarea cols="50" class="is-small" id="chatbox" placeholder="Type your message"></textarea>
-    </div>
 
     <section class="section" id="mainsect">
+        <div class="column is-one-quarter" id="livechat" style="display: none;">
+            <div id="chat">hi</div>
+            <input cols="50" class="is-small" type="text" width="100%" id="chatDisplayName"
+                placeholder="Display Name (optional)"></input>
+            <textarea cols="50" class="is-small" id="chatbox" placeholder="Type your message"></textarea>
+        </div>
         <div class="container" id="mainContainer"></div>
     </section>
 </body>
+
 </html>
