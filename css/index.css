@@ -6,11 +6,10 @@
     height: 500px;
 
     border: 5px solid #555;
-
 } 
 
 
-section {
+.container {
     text-align: center;
 }
 
@@ -46,7 +45,7 @@ html, body {
 
 #chatbox {
     position: absolute;
-    bottom: 0px;
+    bottom: 10px;
     left: 20px;
     right: 10px;
     margin-bottom: 10px;
@@ -64,6 +63,14 @@ html, body {
     width: 320px;
 }
 
+#livechat {
+    background-color: #f0f0f0;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
 .wrapOverflow {
     height: auto !important;
     white-space: unset !important;
@@ -71,4 +78,30 @@ html, body {
     word-wrap: break-word;
     font-size: 20px;
     font-family: Arial;
+}
+
+
+
+.modal-card {
+    width: 95%;
+}
+
+.modal-card-body {
+    text-align: left;
+}
+
+.modal-card-body h1 {
+    margin-left: 7.5%;
+}
+
+.modal-card-body form {
+    margin-left: 7.5%;
+}
+
+.modal-card-body input {
+    width: 85%;
+}
+
+.delete {
+    float: right;
 }
