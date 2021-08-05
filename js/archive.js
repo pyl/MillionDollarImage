@@ -41,43 +41,62 @@ const createArchiveItem = (image) => {
   return archiveItem;
 };
 
+// search archive
 function searchArchive() {
-    let input = document.querySelector("#search").value;
+    let input = document.querySelector("#search").value.toLowerCase(); // handles capitalization as long as all db entries lowercase
     const images = firebase.database().ref("images");
-
     const searchOption = document.querySelector("#searchOption").value;
 
-    if(searchOption == "displayName") {
-        input = input.toLowerCase();
-        images.orderByChild("displayName").equalTo(input).on("child_added", (snap) => {
+    let items = ``;
+
+    if(searchOption == "all") { // search all
+        images.orderByChild("displayName").startAt(input).endAt(input + "\uf8ff").on("child_added", (snap) => { // returns all results that start w input keyword
             console.log(snap.val());
-            renderArchiveDataAsHtml(snap.val());
+            items += createArchiveItem(snap.val());
         });
-    } else if(searchOption == "price") {
+
+        images.orderByChild("link").startAt(input).endAt(input + "\uf8ff").on("child_added", (snap) => {
+            console.log(snap.val());
+            items += createArchiveItem(snap.val());
+        });
+        
+        images.orderByChild("imageURL").startAt(input).endAt(input + "\uf8ff").on("child_added", (snap) => {
+            console.log(snap.val());
+            items += createArchiveItem(snap.val());
+        });
+
+        // handles $ for price
         if(input.substring(0, 1) == "$") {
             input = input.substring(1);
         }
-        images.orderByChild("price").equalTo(input).on("child_added", (snap) => {
-            console.log(snap.val());
-            renderArchiveDataAsHtml(snap.val());
-        });
-    } else if(searchOption == "imageURL") {
-        console.log(searchOption);
-        images.orderByChild("imageURL").equalTo(input).on("child_added", (snap) => {
-            console.log(snap.val());
-            renderArchiveDataAsHtml(snap.val());
-        });
-    } else if(searchOption == "link") {
-        console.log(searchOption);
-        images.orderByChild("link").equalTo(input).on("child_added", (snap) => {
-            console.log(snap.val());
-            renderArchiveDataAsHtml(snap.val());
-        });
-    }
-}
+        
+        input = parseFloat(input);
 
-function renderArchiveDataAsHtml(data) {
-    let images = ``;
-    images += createArchiveItem(data);
-    document.querySelector("#mainsect").innerHTML = images;
+        if(!isNaN(input)) {
+            images.orderByChild("price").equalTo(input).on("child_added", (snap) => {
+                console.log(snap.val());
+                items += createArchiveItem(snap.val());
+            });
+        }        
+    } else { // search individual dropdown option (display name, price, link, image url)
+        if(searchOption == "price") {
+            if(input.substring(0, 1) == "$") {
+                input = input.substring(1);
+            }
+
+            input = parseFloat(input);
+
+            images.orderByChild("price").equalTo(input).on("child_added", (snap) => {
+                console.log(snap.val());
+                items += createArchiveItem(snap.val());
+            });
+        } else {
+            images.orderByChild(searchOption).startAt(input).endAt(input + "\uf8ff").on("child_added", (snap) => {
+                console.log(snap.val());
+                items += createArchiveItem(snap.val());
+            });
+        }
+    }
+
+    document.querySelector("#mainsect").innerHTML = items;
 }
